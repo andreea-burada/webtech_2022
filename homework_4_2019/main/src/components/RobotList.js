@@ -3,14 +3,16 @@ import RobotStore from '../stores/RobotStore'
 import Robot from './Robot'
 import RobotForm from './RobotForm'
 
-
-
 class RobotList extends Component {
 	constructor(){
-		super()
+		super();
 		this.state = {
 			robots : []
 		}
+		this.store = new RobotStore();
+        this.add = (robot) => {
+            this.store.addRobot(robot);
+        }
 	}
 	componentDidMount(){
 		this.store = new RobotStore()
@@ -32,6 +34,7 @@ class RobotList extends Component {
 						<Robot item={e} key={i} />
 					)
 				}
+				<RobotForm onAdd={this.add}/>
 			</div>
 		)
 	}
