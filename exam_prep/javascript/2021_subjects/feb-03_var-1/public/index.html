@@ -1,0 +1,79 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>A simple app</title>
+
+        <script>
+        window.onload = async () => {
+            let btn = document.getElementById('reload')
+            let filter = document.getElementById('filter')
+
+            let tbl = document.getElementById('main')
+
+            let load = async (filter) => {
+                try{
+                    let rows = data.map((e) => `
+                        <tr>
+                            <td>
+                                ${e.name}
+                            </td>
+                            <td>
+                                ${e.color}
+                            </td>
+                        </tr>
+                    `)
+                    tbl.innerHTML = rows.join()
+                }
+                catch(err){
+                    console.warn(err)
+                }
+            }
+            load('');
+
+            // a button with the id reload exists in the page and can be clicked (0.5 pts);
+            
+            // when the button with the id reload is clicked with nothing in the filter, all 
+            // elements are returned(0.5 pts);
+            
+            // when the button with the id reload is clicked with red in the filter, elements 
+            // with color red are returned(0.5 pts);
+            
+            // when the button with the id reload is clicked with a filter color which does not match 
+            // anything an empty list is returned(0.5 pts); (0.5 pts);
+            
+            // set button listener
+            btn.addEventListener('click', () => {
+                fetch(`http://localhost:8080/cars?filter=${filter.value}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        try{
+                            let rows = data.map((e) => `
+                                <tr>
+                                    <td>
+                                        ${e.name}
+                                    </td>
+                                    <td>
+                                        ${e.color}
+                                    </td>
+                                </tr>
+                            `);
+                            tbl.innerHTML = rows.join('');
+                        }
+                        catch(err){
+                            console.warn(err);
+                        }
+                    });
+            });
+        };
+
+    </script>
+    </head>
+    <body>
+        A simple app
+        <input type="text" placeholder="filter" id="filter" />
+        <button id="reload">Reload</button>
+        <table id=main></table>
+    </body>
+</html>
