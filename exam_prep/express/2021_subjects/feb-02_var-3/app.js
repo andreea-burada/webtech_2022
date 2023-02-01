@@ -3,8 +3,8 @@ const Sequelize = require("sequelize");
 const bodyParser = require("body-parser");
 const mysql = require("mysql2/promise");
 
-const DB_USERNAME = "root";
-const DB_PASSWORD = "password";
+const DB_USERNAME = "webtech_exam";
+const DB_PASSWORD = "password";   // CHANGE THIS  
 let conn;
 
 mysql
