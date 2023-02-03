@@ -46,7 +46,7 @@ app.get('/ships', async (req, res) => {
     }
 
     if (typeof pageNo !== 'undefined') {
-        let noShips = all_ships.length;
+        var noShips = all_ships.length;
 
         // If a page is specified, but no page size, the page size is assumed to be 5
         if (typeof pageSize === 'undefined') {
