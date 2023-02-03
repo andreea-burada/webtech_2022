@@ -42,7 +42,11 @@
 ```
 ## Holy Bible
 Thank me later :)
-### [Link](https://github.com/andreea-burada/webtech_2022/blob/main/exam_prep/HOLY_BIBLE.md)
+
+<a href= "https://www.linkedin.com/in/andreea-daniela-burada" title="Click here for The Holy Bible">
+<img height="100px" src="https://www.svgrepo.com/show/419357/bible-book-christian.svg"/>
+</a>
+
 ## MySQL User Creation
 ```sql
 CREATE USER 'webtech_exam'@'localhost' IDENTIFIED BY '[password]';
