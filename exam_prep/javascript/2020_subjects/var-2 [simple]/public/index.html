@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A simple app</title>
+    <script>
+        // on page load, all elements are loaded in the table with the id main with a tr for each car (0.5 pts);
+        window.addEventListener('DOMContentLoaded', async () => {
+            let table = document.getElementById('main');
+            let response = await fetch('http://localhost:8080/cars');
+            let data = await response.json();
+            //console.log(data);
+
+            data.forEach((car) => {
+                let row = document.createElement('tr');
+                let name = document.createElement('td');
+                name.innerText = car.name;
+                let color = document.createElement('td');
+                color.innerText = car.color;
+                row.appendChild(name);
+                row.appendChild(color);
+                table.appendChild(row);
+            });
+
+            // when the button with the id del is clicked, elements with 
+            // the name specified in the name text input are deleted (0.5 pts);
+            let button = document.getElementById('del');
+            button.addEventListener('click', async () => {
+                let name = document.getElementById('name').value;
+                let rows = document.getElementsByTagName('tr');
+                for(let i = rows.length - 1; i >= 0; i--) {
+                    let row = rows[i];
+                    let current_name = row.children[0].innerText;
+                    console.log('row', row, 'current name', current_name);
+                    if (current_name === name) {
+                        table.removeChild(row);
+                        // elements with the name selected for deletion no longer appear in the table (0.5 pts);
+                        let response = await fetch(`http://localhost:8080/cars/${current_name}`, {
+                            method: 'DELETE'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    A simple app
+    <input type="text" placeholder="name" id="name" />
+    <table id=main></table>
+    <!-- a button with the id del exists in the page and can be clicked (0.5 pts); -->
+    <button id="del">Delete</button>
+</body>
+</html>
