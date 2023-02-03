@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Webtech</title>
+        <style>
+            button {
+                position: absolute;
+                background-color: darkgreen;
+                color: aliceblue;
+                border-radius: 5px;
+                border-color: transparent;
+                padding: 5px 10px;
+                transition: 0.15s ease-in;
+            }
+            button:hover {
+                background-color: lime;
+                color: darkslategrey;
+                transition: 0.15s ease-out;
+            }
+            #load {
+                top: 5%;
+                left: 20%;
+            }
+            #delete {
+                top: 5%;
+                left: 25%;
+            }
+            input {
+                position: absolute;
+                top: 5%;
+                left: 31%;
+                height: 22px;
+                border-radius: 5px;
+                border-color: aliceblue;
+            }
+            table {
+                padding: 3px 5px;
+                border: 1.5px solid darkslategrey;
+                border-radius: 5px;
+                border-spacing:0;
+                min-width: 125px;
+                min-height: 80px;
+            }
+            td {
+                border: 2px solid darkslategrey;
+                padding: 3px 5px;
+                margin: 0px 0px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- It should contain a paragraph element with Webtech app text -->
+        <p>Webtech app</p>
+        <table id="table">
+        </table>
+        <button id="load">Load</button>
+        <button id="delete">Delete</button>
+        <input id="name" type="text" placeholder="Name"/>
+        <script>
+            let load_button = document.getElementById('load');
+            load_button.addEventListener('click', () => {
+                let table = document.getElementById('table');
+                fetch('/data')
+                .then((response) => response.json())
+                .then((data) => {
+                    data.forEach((item) => {
+                        let row = document.createElement('tr');
+
+                        let name_col = document.createElement('td');
+                        name_col.innerText = item.name;
+
+                        let surname_col = document.createElement('td');
+                        surname_col.innerText = item.surname;
+
+                        let age_col = document.createElement('td');
+                        age_col.innerText = item.age;
+
+                        row.appendChild(name_col);
+                        row.appendChild(surname_col);
+                        row.appendChild(age_col);
+                        table.appendChild(row);
+                    });
+
+                });
+            });
+
+            let delete_button = document.getElementById('delete');
+            delete_button.addEventListener('click', () => {
+                let table = document.getElementById('table');
+                let input = document.getElementById('name').value;
+                let rows = document.getElementsByTagName('tr');
+                console.log(rows);
+                for (let i = rows.length - 1; i >= 0; i--) {
+                    let row = rows[i];
+                    let name = row.children[0].innerText;
+                    if (name === input) {
+                        console.log('here');
+                        table.removeChild(row);
+                    }
+                }
+            });
+            
+        </script>
+    </body>
+</html>
