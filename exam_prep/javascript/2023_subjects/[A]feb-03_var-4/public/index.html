@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A simple app</title>
+    <script>
+            let load = async () => {
+                try{
+                    // profile details (name, instagram, youtube) are displayed in separate 
+                    // paragraphs in the div-ul with id=content (0.5 pts)
+                    let response = await fetch(`/profile.json`)
+                    let data = await response.json();
+                    console.log('data', data);
+
+                    let div = document.getElementById("content");
+
+                    let name = document.createElement("p");
+                    name.id = "name";
+                    name.innerText = data.name;
+                    div.appendChild(name);
+
+                    let instagram = document.createElement("p");
+                    instagram.id = "instagram";
+                    instagram.innerText = data.instagram;
+                    div.appendChild(instagram);
+
+                    let youtube = document.createElement("p");
+                    youtube.id = "youtube";
+                    youtube.innerText = data.youtube;
+                    div.appendChild(youtube);
+                }
+                catch(err){
+                    console.warn(err)
+                }
+            }
+
+            window.addEventListener('DOMContentLoaded', load);
+
+            let convert = () => {
+                // the button with will convert instagram followers into milions (ex 5M); 
+                // this is executed only on the client side (0.5 pts)
+                let instragram = document.getElementById("instagram");
+                let instagramFollowers = parseInt(instagram.innerText);
+                instagramFollowers = instagramFollowers / 1000000;
+                instagram.innerText = `${instagramFollowers}M`
+            }
+    </script>
+</head>
+<body>
+    <!-- the page index.html has a first rang title containing the text Profil Influencer (0.5 pts) -->
+    <h1>Profil influencer</h1>
+    <div id="content"></div>
+    <input type="button" value="convert" id="convert" onclick="convert()" />
+</body>
+</html>
