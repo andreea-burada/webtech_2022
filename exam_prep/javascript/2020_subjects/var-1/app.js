@@ -49,7 +49,7 @@ function calculateFrequencies(input, dictionary) {
   words.map((word, index) => {
     result = {
       ...result,
-      [word.toLowerCase()]: frequencies[index] / noWords,
+      [word.toLowerCase()]: frequencies[index] / noWords
     };
   });
   console.log("result", result);
