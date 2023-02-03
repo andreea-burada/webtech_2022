@@ -1,0 +1,51 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>A simple app</title>
+
+        <script>
+        window.onload = async () => {
+            // a button with the id load exists in the page and can be clicked (0.5 pts);
+
+            // when the button with the id load is clicked, a list of cars should be 
+            // fetched from the server; cars with the color red loaded in the table with 
+            // the id main with a tr for each car (0.5 pts);
+
+            // the table contains a tr for each car loaded from the server (0.5 pts);
+
+            // only red cars are shown (0.5 pts);
+            
+            // set button listener
+            let btn = document.getElementById('load');
+            btn.addEventListener('click', () => {  
+                let filter = document.getElementById('filter');
+                let table = document.getElementById('main');
+
+                fetch(`http://localhost:8080/cars`)
+                    .then(response => response.json())
+                    .then(data => {
+                        try{
+                            let rows = [];
+                            data.map((car) => {
+                                if (car.color === 'red')
+                                    rows.push(`<tr><td>${car.name}</td><td>${car.color}</td></tr>`);
+                            });
+                            console.log(rows);
+                            table.innerHTML = rows.join('');
+                        }
+                        catch(err){
+                            console.warn(err);
+                        }
+                    });
+            });
+        };
+
+    </script>
+    </head>
+    <body>
+        A simple app
+        <table id=main></table>
+        <input type="button" id="load" value="Load"/>
+    </body>
+</html>
